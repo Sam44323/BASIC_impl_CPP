@@ -1,19 +1,22 @@
 /*
+-----------------------------
             TOKENS
 -----------------------------
 */
 #include <iostream>
 #include <string>
-#define TT_INT = 'INT'
-#define TT_FLOAT = 'FLOAT'
-#define TT_PLUS = 'PLUS'
-#define TT_MINUS = 'MINUS'
-#define TT_MUL = 'MUL'
-#define TT_DIV = 'DIV'
-#define TT_LPAREN = 'LPAREN'
-#define TT_RPAREN = 'RPAREN'
+#define TT_INT = 'INT'       // integer
+#define TT_FLOAT = 'FLOAT'   // float
+#define TT_PLUS = 'PLUS'     // plus
+#define TT_MINUS = 'MINUS'   // minus
+#define TT_MUL = 'MUL'       // multiply
+#define TT_DIV = 'DIV'       // division
+#define TT_LPAREN = 'LPAREN' // left-parenthesis
+#define TT_RPAREN = 'RPAREN' // right-parenthesis
 
 using namespace std;
+
+// creating the class for the token
 
 class Token
 {
@@ -38,5 +41,25 @@ public:
     {
       cout << "Token: " << this->type << endl;
     }
+  }
+};
+
+/*
+-----------------------------
+            LEXER (for converting the streams to tokens)
+-----------------------------
+*/
+
+// creating the class for the lexer
+
+class Lexer
+{
+private:
+  string text;
+
+public:
+  Lexer(string &text)
+  {
+    this->text = text; // text that we need to convert to tokens
   }
 };
