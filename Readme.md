@@ -1,3 +1,3 @@
 # BASIC implementation using Python
 
-**Guided using Ruslan Pivaks site**
+**Guided using Ruslan-Pivaks site**
