@@ -45,6 +45,10 @@ class Parser:
             self.current_token = self.tokens[self.tokenIndex]
         return self.current_token
 
+    def parse(self):
+        result = self.expression()
+        return result
+
     # the basic rules method for the parser
     def factor(self):
         tok = self.current_token
@@ -54,16 +58,19 @@ class Parser:
             return NumberNode(tok)
 
     def term(self):
-        left = self.factor()
+        return self.bin_operation(self.factor, (TT_MUL, TT_DIV))
 
-        while self.current_token in (TT_MUL, TT_DIV):
+    def expression(self):
+        return self.bin_operation(self.term, (TT_PLUS, TT_MINUS))
+
+    def bin_operation(self, func, operations):
+        left = func()
+
+        while self.current_token in operations:
             op = self.current_token
             self.advance()
 
-            right = self.factor()
+            right = func()
             left = BinaryOperationNode(left, op, right)
 
         return left
-
-    def expression():
-        pass
