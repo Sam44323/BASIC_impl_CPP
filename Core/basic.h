@@ -91,41 +91,33 @@ namespace LexerName
 
       while (this->currChar != '\0')
       {
-        if (this->currChar == '\t')
-          this->advance();
-        else if (this->currChar == '+')
+        switch (this->currChar)
         {
+        case '+':
           tokens.push_back(TokenName::Token(TT_PLUS, "+"));
           this->advance();
-        }
-        else if (this->currChar == '-')
-        {
+          break;
+        case '-':
           tokens.push_back(TokenName::Token(TT_MINUS, "-"));
           this->advance();
-        }
-        else if (this->currChar == '*')
-        {
+          break;
+        case '*':
           tokens.push_back(TokenName::Token(TT_MUL, "*"));
           this->advance();
-        }
-        else if (this->currChar == '/')
-        {
+          break;
+        case '/':
           tokens.push_back(TokenName::Token(TT_DIV, "/"));
           this->advance();
-        }
-        else if (this->currChar == '(')
-        {
+          break;
+        case '(':
           tokens.push_back(TokenName::Token(TT_LPAREN, "("));
           this->advance();
-        }
-        else if (this->currChar == ')')
-        {
+          break;
+        case ')':
           tokens.push_back(TokenName::Token(TT_RPAREN, ")"));
           this->advance();
-        }
-        else if (this->currChar == '(')
-        {
-          tokens.push_back(TokenName::Token(TT_LPAREN, "("));
+          break;
+        default:
           this->advance();
         }
       }
