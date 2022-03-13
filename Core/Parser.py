@@ -21,3 +21,22 @@ class BinaryOperationNode:
 
     def __repr__(self):
         return f"{self.left_node} {self.operator_token} {self.right_node}"
+
+
+#######################################
+# PARSER
+#######################################
+
+# the parser for the language
+
+class Parser:
+    def __init__(self, tokens):
+        self.tokens = tokens  # the list of tokens
+        self.tokenIndex = -1  # the index of the current token
+        self.advance()  # advance method for traversing the token list
+
+    def advance(self):
+        self.tokenIndex += 1
+        if self.tokenIndex < len(self.tokens):
+            self.current_token = self.tokens[self.tokenIndex]
+        return self.current_token
