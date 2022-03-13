@@ -53,8 +53,17 @@ class Parser:
             self.advance()
             return NumberNode(tok)
 
-    def term():
-        pass
+    def term(self):
+        left = self.factor()
+
+        while self.current_token in (TT_MUL, TT_DIV):
+            op = self.current_token
+            self.advance()
+
+            right = self.factor()
+            left = BinaryOperationNode(left, op, right)
+
+        return left
 
     def expression():
         pass
