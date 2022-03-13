@@ -5,14 +5,9 @@
 */
 #include <iostream>
 #include <string>
-#define TT_INT = 'INT'       // integer
-#define TT_FLOAT = 'FLOAT'   // float
-#define TT_PLUS = 'PLUS'     // plus
-#define TT_MINUS = 'MINUS'   // minus
-#define TT_MUL = 'MUL'       // multiply
-#define TT_DIV = 'DIV'       // division
-#define TT_LPAREN = 'LPAREN' // left-parenthesis
-#define TT_RPAREN = 'RPAREN' // right-parenthesis
+#include <vector>
+
+const string TT_INT = "INT", TT_FLOAT = "FLOAT", TT_PLUS = "PLUS", TT_MINUS = "MINUS", TT_MUL = "MUL", TT_DIV = "DIV", TT_LPAREN = "LPAREN", TT_RPAREN = "RPAREN";
 
 using namespace std;
 
@@ -90,5 +85,50 @@ namespace LexerName
     }
 
     // method for making the tokens
-    };
+    void makeTokens()
+    {
+      std::vector<TokenName::Token> tokens;
+
+      while (this->currChar != '\0')
+      {
+        if (this->currChar == '\t')
+          this->advance();
+        else if (this->currChar == '+')
+        {
+          tokens.push_back(TokenName::Token(TT_PLUS, "+"));
+          this->advance();
+        }
+        else if (this->currChar == '-')
+        {
+          tokens.push_back(TokenName::Token(TT_MINUS, "-"));
+          this->advance();
+        }
+        else if (this->currChar == '*')
+        {
+          tokens.push_back(TokenName::Token(TT_MUL, "*"));
+          this->advance();
+        }
+        else if (this->currChar == '/')
+        {
+          tokens.push_back(TokenName::Token(TT_DIV, "/"));
+          this->advance();
+        }
+        else if (this->currChar == '(')
+        {
+          tokens.push_back(TokenName::Token(TT_LPAREN, "("));
+          this->advance();
+        }
+        else if (this->currChar == ')')
+        {
+          tokens.push_back(TokenName::Token(TT_RPAREN, ")"));
+          this->advance();
+        }
+        else if (this->currChar == '(')
+        {
+          tokens.push_back(TokenName::Token(TT_LPAREN, "("));
+          this->advance();
+        }
+      }
+    }
+  };
 }
