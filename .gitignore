@@ -2,3 +2,4 @@
 ..gpg
 .gpg
 *.pyc
+__pycache__
