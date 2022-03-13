@@ -1,4 +1,4 @@
 .vscode
 ..gpg
 .gpg
-*.out
+*.pyc
