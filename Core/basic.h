@@ -4,7 +4,7 @@
 -----------------------------
 */
 
-const string DIGITS = "0123456789";
+const string DIGITS = "0123456789.";
 
 const string TT_INT = "INT", TT_FLOAT = "FLOAT", TT_PLUS = "PLUS", TT_MINUS = "MINUS", TT_MUL = "MUL", TT_DIV = "DIV", TT_LPAREN = "LPAREN", TT_RPAREN = "RPAREN";
 
@@ -99,36 +99,73 @@ namespace LexerName
 
       while (this->currChar != '\0')
       {
-        switch (this->currChar)
-        {
-        case '+':
-          tokens.push_back(TokenName::Token(TT_PLUS, "+"));
+        if (this->currChar == '\t' || this->currChar == ' ')
           this->advance();
-          break;
-        case '-':
+        else if (this->currChar == '+')
+          tokens.push_back(TokenName::Token(TT_PLUS, "+"));
+        else if (this->currChar == '-')
+        {
           tokens.push_back(TokenName::Token(TT_MINUS, "-"));
           this->advance();
-          break;
-        case '*':
+        }
+        else if (this->currChar == '*')
+        {
           tokens.push_back(TokenName::Token(TT_MUL, "*"));
           this->advance();
-          break;
-        case '/':
+        }
+        else if (this->currChar == '/')
+        {
           tokens.push_back(TokenName::Token(TT_DIV, "/"));
           this->advance();
-          break;
-        case '(':
+        }
+        else if (this->currChar == '(')
+        {
           tokens.push_back(TokenName::Token(TT_LPAREN, "("));
           this->advance();
-          break;
-        case ')':
+        }
+        else if (this->currChar == ')')
+        {
           tokens.push_back(TokenName::Token(TT_RPAREN, ")"));
           this->advance();
-          break;
-        default:
+        }
+        else if (this->currChar == '(')
+        {
+          tokens.push_back(TokenName::Token(TT_LPAREN, "("));
+          this->advance();
+        }
+        else if (DIGITS.find(this->currChar) != string::npos)
+        {
+          tokens.push_back(this->numberResolver());
           this->advance();
         }
       }
+    }
+
+    TokenName::Token numberResolver()
+    {
+      string num_str = "";
+      int dot_count = 0;
+
+      while (this->currChar != '\0' && DIGITS.find(this->currChar) != string::npos)
+      {
+        if (this->currChar == '.')
+        {
+          if (dot_count == 1)
+            break;
+          num_str += '.';
+          dot_count++;
+        }
+        else
+        {
+          num_str += this->currChar;
+        }
+        this->advance();
+      }
+
+      if (dot_count == 0)
+        return TokenName::Token(TT_INT, num_str);
+      else
+        return TokenName::Token(TT_FLOAT, num_str);
     }
   };
 }
