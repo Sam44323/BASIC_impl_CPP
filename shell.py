@@ -1,8 +1,8 @@
-import Core.basic as basic
+import Core.Lexer as Lexer
 
 while True:
     text = input('basic > ')
-    result, error = basic.run('<stdin>', text)
+    result, error = Lexer.run('<stdin>', text)
 
     if error:
         print(error.as_string())
