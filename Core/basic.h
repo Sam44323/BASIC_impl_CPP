@@ -1,13 +1,21 @@
 /*
 -----------------------------
+            CONSTANTS
+-----------------------------
+*/
+
+const string DIGITS = "0123456789";
+
+const string TT_INT = "INT", TT_FLOAT = "FLOAT", TT_PLUS = "PLUS", TT_MINUS = "MINUS", TT_MUL = "MUL", TT_DIV = "DIV", TT_LPAREN = "LPAREN", TT_RPAREN = "RPAREN";
+
+/*
+-----------------------------
             TOKENS
 -----------------------------
 */
 #include <iostream>
 #include <string>
 #include <vector>
-
-const string TT_INT = "INT", TT_FLOAT = "FLOAT", TT_PLUS = "PLUS", TT_MINUS = "MINUS", TT_MUL = "MUL", TT_DIV = "DIV", TT_LPAREN = "LPAREN", TT_RPAREN = "RPAREN";
 
 using namespace std;
 
