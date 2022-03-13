@@ -40,3 +40,13 @@ class Parser:
         if self.tokenIndex < len(self.tokens):
             self.current_token = self.tokens[self.tokenIndex]
         return self.current_token
+
+    # the basic rules method for the parser
+    def factor():
+        pass
+
+    def term():
+        pass
+
+    def expression():
+        pass
