@@ -50,6 +50,7 @@ namespace ErrorName
 #include <iostream>
 #include <string>
 #include <vector>
+#include <tuple>
 
 using namespace std;
 
@@ -127,7 +128,7 @@ namespace LexerName
     }
 
     // method for making the tokens
-    void makeTokens()
+    std::vector<TokenName::Token> makeTokens()
     {
       std::vector<TokenName::Token> tokens;
 
@@ -175,9 +176,10 @@ namespace LexerName
         else
         {
           ErrorName::IllegalCharError error = ErrorName::IllegalCharError(this->currChar);
-          throw error;
+          throw error.print();
         }
       }
+      return tokens;
     }
 
     TokenName::Token numberResolver()
