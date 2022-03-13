@@ -1,0 +1,5 @@
+factor : INT  | FLOAT  [e.g. 8] 
+
+term : factor ((MUL | DIV) factor)* [e.g. 8 * 5]
+
+expr : term ((PLUS | MINUS) term)* [e.g. 10 + (8 * 5)]
