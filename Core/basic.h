@@ -210,3 +210,19 @@ namespace LexerName
     }
   };
 }
+
+/*
+-----------------------------
+            RUN
+-----------------------------
+*/
+
+void fun(string text)
+{
+  LexerName::Lexer lexer(text);
+  std::vector<TokenName::Token> tokens = lexer.makeTokens();
+  for (int i = 0; i < tokens.size(); i++)
+  {
+    tokens[i].print();
+  }
+}
