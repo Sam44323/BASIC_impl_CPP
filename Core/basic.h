@@ -19,15 +19,26 @@ namespace ErrorName
   class Error
   {
   private:
-    string err_name;
-    string err_msg;
+    string error_name;
+    string error_message;
 
   public:
     Error(string error_name, string description)
     {
-      this->err_name = error_name;
-      this->err_msg = description;
+      this->error_name = error_name;
+      this->error_message = description;
     }
+
+    string print()
+    {
+      return this->error_name + ": " + this->error_message;
+    }
+  };
+
+  class IllegalCharError : public Error
+  {
+  public:
+    IllegalCharError(char chr) : Error("IllegalCharError", "Illegal character: " + chr) {}
   };
 }
 
@@ -160,6 +171,11 @@ namespace LexerName
         {
           tokens.push_back(this->numberResolver());
           this->advance();
+        }
+        else
+        {
+          ErrorName::IllegalCharError error = ErrorName::IllegalCharError(this->currChar);
+          throw error;
         }
       }
     }
