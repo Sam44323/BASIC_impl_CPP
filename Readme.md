@@ -1,3 +1,3 @@
-# BASIC implementation using CPP
+# BASIC implementation using Python
 
 **Guided using Ruslan Pivaks site**
