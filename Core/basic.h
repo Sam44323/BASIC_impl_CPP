@@ -1,3 +1,10 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <tuple>
+
+using namespace std;
+
 /*
 -----------------------------
             CONSTANTS
@@ -20,10 +27,10 @@ namespace ErrorName
   {
   private:
     string error_name;
-    string error_message;
+    char error_message;
 
   public:
-    Error(string error_name, string description)
+    Error(string error_name, char description)
     {
       this->error_name = error_name;
       this->error_message = description;
@@ -38,7 +45,7 @@ namespace ErrorName
   class IllegalCharError : public Error
   {
   public:
-    IllegalCharError(char chr) : Error("IllegalCharError", "Illegal character: " + chr) {}
+    IllegalCharError(char chr) : Error("IllegalCharError", chr) {}
   };
 }
 
@@ -47,12 +54,6 @@ namespace ErrorName
             TOKENS
 -----------------------------
 */
-#include <iostream>
-#include <string>
-#include <vector>
-#include <tuple>
-
-using namespace std;
 
 // creating the class for the token
 
@@ -217,7 +218,7 @@ namespace LexerName
 -----------------------------
 */
 
-void fun(string text)
+void run(string text)
 {
   LexerName::Lexer lexer(text);
   std::vector<TokenName::Token> tokens = lexer.makeTokens();

@@ -12,6 +12,8 @@ int main()
     getline(cin, text);
     cin.clear();
     cout << text << endl;
+
+    run(text);
   }
   return 0;
 }
