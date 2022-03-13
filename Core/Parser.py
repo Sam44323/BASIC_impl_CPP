@@ -1,3 +1,4 @@
+from socket import NI_NUMERICSERV
 from Core.constants import *
 
 
@@ -45,8 +46,12 @@ class Parser:
         return self.current_token
 
     # the basic rules method for the parser
-    def factor():
-        pass
+    def factor(self):
+        tok = self.current_token
+
+        if tok.type in (TT_FLOAT, TT_INT):
+            self.advance()
+            return NumberNode(tok)
 
     def term():
         pass
