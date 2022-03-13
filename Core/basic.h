@@ -10,6 +10,29 @@ const string TT_INT = "INT", TT_FLOAT = "FLOAT", TT_PLUS = "PLUS", TT_MINUS = "M
 
 /*
 -----------------------------
+            ERRORS
+-----------------------------
+*/
+
+namespace ErrorName
+{
+  class Error
+  {
+  private:
+    string err_name;
+    string err_msg;
+
+  public:
+    Error(string error_name, string description)
+    {
+      this->err_name = error_name;
+      this->err_msg = description;
+    }
+  };
+}
+
+/*
+-----------------------------
             TOKENS
 -----------------------------
 */
