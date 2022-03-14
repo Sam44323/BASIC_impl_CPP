@@ -233,4 +233,11 @@ def run(fn, text):
     lexer = Lexer(fn, text)
     tokens, error = lexer.make_tokens()
 
-    return tokens, error
+    if error:
+        return None, error
+
+    # Generating the tree
+    parse = Parser(tokens)
+    ast = parse.parse()
+
+    return ast, None
