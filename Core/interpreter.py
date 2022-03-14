@@ -43,7 +43,7 @@ class Interpreter:
           This method is responsible for breaking a sentence
           apart into tokens. One token at a time.
         """
-        text = self.current_token
+        text = self.text
 
         if self.pos > len(text) - 1:
             return Token(EOF, None)

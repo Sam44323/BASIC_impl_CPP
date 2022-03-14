@@ -1,4 +1,7 @@
+from Core.interpreter import Interpreter
 # main executor for the program
+
+
 def main():
     while True:
         try:
@@ -7,7 +10,9 @@ def main():
             break
         if not text:
             continue
-        print(text)
+        interpreter = Interpreter(text)
+        result = interpreter.expression()
+        print(result)
 
 
 main()
