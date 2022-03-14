@@ -65,7 +65,7 @@ class Interpreter:
             return self.token_advancer()
 
         else:
-          return self.error()   # throw error if none of the condition matches
+            return self.error()   # throw error if none of the condition matches the curr_char
 
     def token_matcher(self, token_type):
        # compare the current token type with the passed token
