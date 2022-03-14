@@ -11,7 +11,7 @@ class Token():
         self.type = type  # INTEGER, PLUS, or EOF
         self.value = value  # value: 0, 1, 2. 3, 4, 5, 6, 7, 8, 9, '+', or None
 
-    def __str__(self) -> str:
+    def __repr__(self) -> str:
         """String representation of the class instance.
 
         Examples:
