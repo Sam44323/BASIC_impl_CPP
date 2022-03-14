@@ -1,4 +1,4 @@
-# BASIC implementation using Python
+# PASCAL implementation using Python
 
 **Guided using Ruslan-Spivaks site**
 
