@@ -194,6 +194,20 @@ class Parser:
             self.current_token = self.tokens[self.token_idx]
         return self.current_token
 
+    def factor(self):
+        tok = self.current_token
+
+        if tok in (TT_INT, TT_FLOAT):
+            self.advance()
+            return NumberNode(tok)
+
+    def term(self):
+        pass
+
+    def expression(self):
+        pass
+
+
 #######################################
 # RUN
 #######################################
