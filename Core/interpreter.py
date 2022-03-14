@@ -60,7 +60,12 @@ class Interpreter:
             self.pos += 1
             return token
 
-        self.error()  # throw error if none of the condition matches
+        elif curr_char == ' ':
+            self.pos += 1
+            return self.token_advancer()
+
+        else:
+          return self.error()   # throw error if none of the condition matches
 
     def token_matcher(self, token_type):
        # compare the current token type with the passed token
