@@ -61,3 +61,36 @@ class Interpreter:
             return token
 
         self.error()  # throw error if none of the condition matches
+
+    def token_matcher(self, token_type):
+       # compare the current token type with the passed token
+       # type and if they match then replace the current token
+       # and assign the next token to the self.current_token,
+       # otherwise raise an exception
+
+        if self.current_token.type == token_type:
+            self.current_token = self.token_advancer()
+        else:
+            self.error()
+
+    def expression(self):
+        """expression -> INTEGER PLUS INTEGER"""
+        # setting current token to the first token taken from the input
+        self.current_token = self.token_advancer()
+
+        # we expect the current token to be a single-digit integer
+        left = self.current_token
+        self.token_matcher(INTEGER)
+
+        # we expect the current token to be a '+' token
+
+        op = self.current_token
+        self.token_matcher(PLUS)
+
+        # we expect the current token to be a single-digit integer
+        right = self.current_token
+        self.token_matcher(INTEGER)
+
+        # now the self.current_token is set to EOF token
+        result = left.value + right.value
+        return result
