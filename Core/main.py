@@ -2,6 +2,9 @@
 # CONSTANTS
 #######################################
 
+from this import d
+
+
 DIGITS = '0123456789'
 
 #######################################
@@ -147,6 +150,49 @@ class Lexer:
             return Token(TT_INT, int(num_str))
         else:
             return Token(TT_FLOAT, float(num_str))
+
+#######################################
+# NODES
+#######################################
+
+# node for each token
+
+
+class NumberNode:
+    def __init__(self, token):
+        self.token = token
+
+    def __repr__(self):
+        return f'{self.token.type}'
+
+# node for binary operations such as +, -, *, / with left_node and right_node with the operator_token
+
+
+class BinaryOpertionNode:
+    def __init__(self, left_node, op_token, right_node):
+        self.left_node = left_node
+        self.operator_node = op_token
+        self.right_node = right_node
+
+    def __repr__(self):
+        return f'({self.left_node} {self.operator_node} {self.right_node})'
+
+#######################################
+# PARSER
+#######################################
+
+
+class Parser:
+    def __init__(self, tokens):
+        self.tokens = tokens
+        self.current_token_idx = -1
+        self.advance()
+
+    def advance(self):
+        self.current_token_idx += 1
+        if self.current_token_idx < len(self.tokens):
+            self.current_token = self.tokens[self.current_token_idx]
+        return self.current_token
 
 #######################################
 # RUN
