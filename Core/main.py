@@ -2,9 +2,6 @@
 # CONSTANTS
 #######################################
 
-from ast import operator
-from this import d
-
 
 DIGITS = '0123456789'
 
