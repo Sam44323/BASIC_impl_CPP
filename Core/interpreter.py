@@ -3,11 +3,8 @@
 # EOF (end-of-file) token is used to indicate that
 # there is no more input left for lexical analysis
 
-import string
-from tokenize import String
 
-
-PLUS, EOF, INTEGER = 'PLUS', 'EOF', 'INTEGER'
+PLUS, MINUS, EOF, INTEGER = 'PLUS', 'MINUS', 'EOF', 'INTEGER'
 
 
 class Token:
@@ -60,6 +57,11 @@ class Interpreter:
             self.pos += 1
             return token
 
+        elif curr_char == '-':
+            token = Token(MINUS, curr_char)
+            self.pos += 1
+            return token
+
         elif curr_char == ' ':
             self.pos += 1
             return self.token_advancer()
@@ -91,10 +93,13 @@ class Interpreter:
             except:
                 break
 
-        # we expect the current token to be a '+' token
+        # we expect the current token to be a '+' or '-' or ' ' token
 
         op = self.current_token
-        self.token_matcher(PLUS)
+        try:
+            self.token_matcher(PLUS)
+        except:
+            self.current_token = self.token_advancer()
 
         # we expect the current token to be a single-digit integer
 
@@ -106,5 +111,11 @@ class Interpreter:
                 break
 
         # now the self.current_token is set to EOF token
-        result = left + right
+        if op.type == PLUS:
+            result = left + right
+        else:
+            result: int = left - right
+
+        print("Result: ", result)
+
         return result
