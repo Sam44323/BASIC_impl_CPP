@@ -185,13 +185,13 @@ class BinaryOpertionNode:
 class Parser:
     def __init__(self, tokens):
         self.tokens = tokens
-        self.current_token_idx = -1
+        self.token_idx = -1
         self.advance()
 
     def advance(self):
-        self.current_token_idx += 1
-        if self.current_token_idx < len(self.tokens):
-            self.current_token = self.tokens[self.current_token_idx]
+        self.token_idx += 1
+        if self.token_idx < len(self.tokens):
+            self.current_token = self.tokens[self.token_idx]
         return self.current_token
 
 #######################################
