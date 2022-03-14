@@ -76,11 +76,15 @@ class Interpreter:
     def expression(self):
         """expression -> INTEGER PLUS INTEGER"""
         # setting current token to the first token taken from the input
+        (left, right) = (0, 0)
         self.current_token = self.token_advancer()
 
-        # we expect the current token to be a single-digit integer
-        left = self.current_token
-        self.token_matcher(INTEGER)
+        while self.current_token.type == INTEGER:
+            try:
+                left = left * 10 + int(self.current_token.value)
+                self.token_matcher(INTEGER)
+            except:
+                break
 
         # we expect the current token to be a '+' token
 
@@ -88,9 +92,14 @@ class Interpreter:
         self.token_matcher(PLUS)
 
         # we expect the current token to be a single-digit integer
-        right = self.current_token
-        self.token_matcher(INTEGER)
+
+        while self.current_token.type == INTEGER:
+            try:
+                right = right * 10 + int(self.current_token.value)
+                self.token_matcher(INTEGER)
+            except:
+                break
 
         # now the self.current_token is set to EOF token
-        result = left.value + right.value
+        result = left + right
         return result
