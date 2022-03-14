@@ -219,6 +219,10 @@ class Parser:
             self.advance()
             left = BinaryOperationNode(left, op_tok, right)
 
+    # parsing the tokens the AST
+    def parse(self):
+        return self.expression()
+
 
 #######################################
 # RUN
