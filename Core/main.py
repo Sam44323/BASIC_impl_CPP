@@ -210,13 +210,11 @@ class Parser:
 
     def operation(self, func, operation_tokens):
         left = func()  # getting the left factor node
-        self.advance()
 
         while self.current_token.type in operation_tokens:
             op_tok = self.current_token  # getting the operation token
             self.advance()
             right = func()  # getting the right factor node
-            self.advance()
             left = BinaryOperationNode(left, op_tok, right)
 
     # parsing the tokens the AST
