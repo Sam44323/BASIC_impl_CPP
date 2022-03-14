@@ -183,7 +183,9 @@ class BinaryOperationNode:
 class Parser:
     def __init__(self, tokens):
         self.tokens = tokens
+        self.current_token = None
         self.token_idx = -1
+        print("Tokens: ", tokens)
         self.advance()
 
     def advance(self):
@@ -195,15 +197,15 @@ class Parser:
     def factor(self):
         tok = self.current_token
 
-        if tok in (TT_INT, TT_FLOAT):
+        if tok.type in (TT_INT, TT_FLOAT):
             self.advance()
             return NumberNode(tok)
 
     def term(self):
-        return self.operation(self.factor, (TT_MUL, TT_DIV))
+        return self.operation(self.factor(TT_MUL, TT_DIV))
 
     def expression(self):
-        return self.operation(self.term, (TT_PLUS, TT_MINUS))
+        return self.operation(self.factor, (TT_PLUS, TT_MINUS))
 
     def operation(self, func, operation_tokens):
         left = func()  # getting the left factor node
@@ -213,6 +215,8 @@ class Parser:
             self.advance()
             right = func()  # getting the right factor node
             left = BinaryOperationNode(left, op_tok, right)
+
+        return left
 
     # parsing the tokens the AST
     def parse(self):
@@ -235,4 +239,6 @@ def run(fn, text):
     parse = Parser(tokens)
     ast = parse.parse()
 
-    return ast, None
+    print("AST: ", ast)
+
+    return (ast, None)
