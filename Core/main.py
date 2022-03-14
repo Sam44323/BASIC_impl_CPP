@@ -2,6 +2,7 @@
 # CONSTANTS
 #######################################
 
+from ast import operator
 from this import d
 
 
@@ -168,7 +169,7 @@ class NumberNode:
 # node for binary operations such as +, -, *, / with left_node and right_node with the operator_token
 
 
-class BinaryOpertionNode:
+class BinaryOperationNode:
     def __init__(self, left_node, op_token, right_node):
         self.left_node = left_node
         self.operator_node = op_token
@@ -202,10 +203,21 @@ class Parser:
             return NumberNode(tok)
 
     def term(self):
-        pass
+        return self.operation(self.factor, (TT_MUL, TT_DIV))
 
     def expression(self):
-        pass
+        return self.operation(self.term, (TT_PLUS, TT_MINUS))
+
+    def operation(self, func, operation_tokens):
+        left = func()  # getting the left factor node
+        self.advance()
+
+        while self.current_token.type in operation_tokens:
+            op_tok = self.current_token  # getting the operation token
+            self.advance()
+            right = func()  # getting the right factor node
+            self.advance()
+            left = BinaryOperationNode(left, op_tok, right)
 
 
 #######################################
