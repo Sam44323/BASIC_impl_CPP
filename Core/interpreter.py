@@ -81,9 +81,11 @@ class Interpreter:
             self.error()
 
     def expression(self):
-        """expression -> INTEGER PLUS INTEGER"""
-        # setting current token to the first token taken from the input
+        """expression -> INTEGER PLUS/MINUS/MULTI/DIVIDE INTEGER"""
+
         (left, right) = (0, 0)
+
+        # setting current token to the first token taken from the input
         self.current_token = self.token_advancer()
 
         while self.current_token.type == INTEGER:
@@ -101,7 +103,7 @@ class Interpreter:
         except:
             self.current_token = self.token_advancer()
 
-        # we expect the current token to be a single-digit integer
+        # we expect the current token to be a single-digit/multi-digit integer
 
         while self.current_token.type == INTEGER:
             try:
