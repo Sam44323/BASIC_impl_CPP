@@ -9,7 +9,6 @@ class Token(object):
     def __init__(self, type, value):
         # token type: INTEGER, PLUS, MINUS, or EOF
         self.type = type
-        # token value: non-negative integer value, '+', '-', or None
         self.value = value
 
     def __str__(self):
@@ -32,9 +31,7 @@ class Interpreter(object):
     def __init__(self, text):
         # client string input, e.g. "3 + 5", "12 - 5 + 3", etc
         self.text = text
-        # self.pos is an index into self.text
         self.pos = 0
-        # current token instance
         self.current_token = None
         self.current_char = self.text[self.pos]
 
