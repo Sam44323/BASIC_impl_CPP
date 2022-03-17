@@ -4,7 +4,7 @@
 # there is no more input left for lexical analysis
 
 
-PLUS, MINUS, MULTI, EOF, INTEGER = 'PLUS', 'MINUS', 'MULTI', 'EOF', 'INTEGER'
+PLUS, MINUS, MULTI, DIV, EOF, INTEGER = 'PLUS', 'MINUS', 'MULTI', 'DIV', 'EOF', 'INTEGER'
 
 
 class Token:
@@ -66,6 +66,10 @@ class Interpreter:
             token = Token(MULTI, curr_char)
             self.pos += 1
             return token
+        elif curr_char == '/':
+            token = Token(DIV, curr_char)
+            self.pos += 1
+            return token
 
         elif curr_char == ' ':
             self.pos += 1
@@ -109,6 +113,8 @@ class Interpreter:
             self.token_matcher(MINUS)
         elif op.type == MULTI:
             self.token_matcher(MULTI)
+        elif op.type == DIV:
+            self.token_matcher(DIV)
 
         # we expect the current token to be a single-digit/multi-digit integer
 
@@ -126,6 +132,8 @@ class Interpreter:
             result: int = left - right
         elif op.type == MULTI:
             result = left * right
+        elif op.type == DIV:
+            result = left / right
 
         print("Result: ", result)
 
