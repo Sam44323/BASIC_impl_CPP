@@ -93,6 +93,7 @@ class Interpreter:
         """expression -> INTEGER PLUS/MINUS/MULTI/DIVIDE INTEGER"""
 
         (left, right) = (0, 0)
+        result = 0
 
         # setting current token to the first token taken from the input
         self.current_token = self.token_advancer()
@@ -129,12 +130,13 @@ class Interpreter:
         if op.type == PLUS:
             result = left + right
         elif op.type == MINUS:
-            result: int = left - right
+            result = left - right
         elif op.type == MULTI:
             result = left * right
         elif op.type == DIV:
             result = left / right
 
         print("Result: ", result)
+        result = 0
 
         return result
