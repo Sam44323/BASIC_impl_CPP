@@ -107,7 +107,7 @@ class Interpreter(object):
         self.matcher(INTEGER)
         return token.value
 
-    def expr(self):
+    def expression(self):
         """Arithmetic expression parser / interpreter."""
         # set current token to the first token taken from the input
         self.current_token = self.get_next_token()
