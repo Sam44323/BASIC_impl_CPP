@@ -103,7 +103,12 @@ class Interpreter:
         # we expect the current token to be a '+' or '-' or '*' token
 
         op = self.current_token
-        self.current_token = self.token_advancer()
+        if op.type == PLUS:
+            self.token_matcher(PLUS)
+        elif op.type == MINUS:
+            self.token_matcher(MINUS)
+        elif op.type == MULTI:
+            self.token_matcher(MULTI)
 
         # we expect the current token to be a single-digit/multi-digit integer
 
