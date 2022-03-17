@@ -44,8 +44,8 @@ class Interpreter(object):
     def error(self):
         raise Exception('Invalid syntax')
 
-    def advance(self):
-        """Advance the `pos` pointer and set the `current_char` variable."""
+    def token_advancer(self):
+        """Advances the `pos` pointer and set the `current_char` variable."""
         self.pos += 1
         if self.pos > len(self.text) - 1:
             self.current_char = None  # Indicates end of input
@@ -54,14 +54,14 @@ class Interpreter(object):
 
     def skip_whitespace(self):
         while self.current_char is not None and self.current_char.isspace():
-            self.advance()
+            self.token_advancer()
 
     def integer(self):
         """Return a (multidigit) integer consumed from the input."""
         result = ''
         while self.current_char is not None and self.current_char.isdigit():
             result += self.current_char
-            self.advance()
+            self.token_advancer()
         return int(result)
 
     def get_next_token(self):
@@ -80,11 +80,11 @@ class Interpreter(object):
                 return Token(INTEGER, self.integer())
 
             if self.current_char == '+':
-                self.advance()
+                self.token_advancer()
                 return Token(PLUS, '+')
 
             if self.current_char == '-':
-                self.advance()
+                self.token_advancer()
                 return Token(MINUS, '-')
 
             self.error()
@@ -94,7 +94,7 @@ class Interpreter(object):
     ##########################################################
     # Parser / Interpreter code                              #
     ##########################################################
-    def token_advancer(self, token_type):
+    def matcher(self, token_type):
         if self.current_token.type == token_type:
             self.current_token = self.get_next_token()
         else:
@@ -103,7 +103,7 @@ class Interpreter(object):
     def term(self):
         """Return an INTEGER token value."""
         token = self.current_token
-        self.token_advancer(INTEGER)
+        self.matcher(INTEGER)
         return token.value
 
     def expr(self):
@@ -115,10 +115,10 @@ class Interpreter(object):
         while self.current_token.type in (PLUS, MINUS):
             token = self.current_token
             if token.type == PLUS:
-                self.token_advancer(PLUS)
+                self.matcher(PLUS)
                 result = result + self.term()
             elif token.type == MINUS:
-                self.token_advancer(MINUS)
+                self.matcher(MINUS)
                 result = result - self.term()
 
         return result
