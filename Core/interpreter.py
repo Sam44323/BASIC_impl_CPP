@@ -2,7 +2,7 @@
 #
 # EOF (end-of-file) token is used to indicate that
 # there is no more input left for lexical analysis
-INTEGER, PLUS, MINUS, EOF = 'INTEGER', 'PLUS', 'MINUS', 'EOF'
+INTEGER, MINUS, MULTI, PLUS, DIV, EOF = 'INTEGER', 'MINUS', 'MULTI', 'PLUS', 'DIV', 'EOF'
 
 
 class Token(object):
@@ -80,6 +80,14 @@ class Interpreter(object):
                 self.token_advancer()
                 return Token(MINUS, '-')
 
+            if self.current_char == '*':
+                self.token_advancer()
+                return Token(MULTI, '*')
+
+            if self.current_char == '/':
+                self.token_advancer()
+                return Token(DIV, '/')
+
             self.error()
 
         return Token(EOF, None)
@@ -105,7 +113,7 @@ class Interpreter(object):
         self.current_token = self.get_next_token()
 
         result = self.term()  # making sure that the first term/terms are integers
-        while self.current_token.type in (PLUS, MINUS):
+        while self.current_token.type in (PLUS, MINUS, MULTI, DIV):
             operate = self.current_token
             if operate.type == PLUS:
                 self.matcher(PLUS)
@@ -113,5 +121,11 @@ class Interpreter(object):
             elif operate.type == MINUS:
                 self.matcher(MINUS)
                 result = result - self.term()
+            elif operate.type == MULTI:
+                self.matcher(MULTI)
+                result = result * self.term()
+            elif operate.type == DIV:
+                self.matcher(DIV)
+                result = result / self.term()
 
         return result
