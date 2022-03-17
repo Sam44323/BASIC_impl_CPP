@@ -13,10 +13,6 @@ class Token(object):
 
     def __str__(self):
         """String representation of the class instance.
-
-        Examples:
-            Token(INTEGER, 3)
-            Token(PLUS, '+')
         """
         return 'Token({type}, {value})'.format(
             type=self.type,
@@ -108,13 +104,13 @@ class Interpreter(object):
         # set current token to the first token taken from the input
         self.current_token = self.get_next_token()
 
-        result = self.term()
+        result = self.term()  # making sure that the first term/terms are integers
         while self.current_token.type in (PLUS, MINUS):
-            token = self.current_token
-            if token.type == PLUS:
+            operate = self.current_token
+            if operate.type == PLUS:
                 self.matcher(PLUS)
                 result = result + self.term()
-            elif token.type == MINUS:
+            elif operate.type == MINUS:
                 self.matcher(MINUS)
                 result = result - self.term()
 
