@@ -4,7 +4,7 @@
 # there is no more input left for lexical analysis
 
 
-PLUS, MINUS, EOF, INTEGER = 'PLUS', 'MINUS', 'EOF', 'INTEGER'
+PLUS, MINUS, MULTI, EOF, INTEGER = 'PLUS', 'MINUS', 'MULTI', 'EOF', 'INTEGER'
 
 
 class Token:
@@ -62,6 +62,11 @@ class Interpreter:
             self.pos += 1
             return token
 
+        elif curr_char == '*':
+            token = Token(MULTI, curr_char)
+            self.pos += 1
+            return token
+
         elif curr_char == ' ':
             self.pos += 1
             return self.token_advancer()
@@ -95,13 +100,10 @@ class Interpreter:
             except:
                 break
 
-        # we expect the current token to be a '+' or '-' or ' ' token
+        # we expect the current token to be a '+' or '-' or '*' token
 
         op = self.current_token
-        try:
-            self.token_matcher(PLUS)
-        except:
-            self.current_token = self.token_advancer()
+        self.current_token = self.token_advancer()
 
         # we expect the current token to be a single-digit/multi-digit integer
 
@@ -115,8 +117,10 @@ class Interpreter:
         # now the self.current_token is set to EOF token
         if op.type == PLUS:
             result = left + right
-        else:
+        elif op.type == MINUS:
             result: int = left - right
+        elif op.type == MULTI:
+            result = left * right
 
         print("Result: ", result)
 
