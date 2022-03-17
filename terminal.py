@@ -11,7 +11,7 @@ def main():
         if not text:
             continue
         interpreter = Interpreter(text)
-        result = interpreter.expression()
+        result = interpreter.expr()
         print(result)
 
 
