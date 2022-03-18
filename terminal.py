@@ -1,4 +1,4 @@
-from Core.interpreter import Interpreter
+from Core.interpreter import Interpreter, Lexer
 # main executor for the program
 
 
@@ -10,7 +10,8 @@ def main():
             break
         if not text:
             continue
-        interpreter = Interpreter(text)
+        lexer = Lexer(text)
+        interpreter = Interpreter(lexer)
         result = interpreter.expression()
         print(result)
 
