@@ -122,13 +122,13 @@ class Interpreter(object):
         """Return a result of multiplying/dividing two factors."""
         result = self.factor()
 
-        while self.current_token.type == MULTI:
-            self.matcher(MULTI)
-            result *= self.factor()
-
-        while self.current_token.type == DIV:
-            self.matcher(DIV)
-            result /= self.factor()
+        while self.current_token.type in (MULTI, DIV):
+            if self.current_token.type == MULTI:
+                self.matcher(MULTI)
+                result *= self.factor()
+            elif self.current_token.type == DIV:
+                self.matcher(DIV)
+                result /= self.factor()
 
         return result
 
