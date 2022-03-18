@@ -22,6 +22,10 @@ class Token(object):
     def __repr__(self):
         return self.__str__()
 
+##########################################################
+# Parser / Interpreter code                              #
+##########################################################
+
 
 class Interpreter(object):
     def __init__(self, text):
@@ -92,9 +96,6 @@ class Interpreter(object):
 
         return Token(EOF, None)
 
-    ##########################################################
-    # Parser / Interpreter code                              #
-    ##########################################################
     def matcher(self, token_type):
         if self.current_token.type == token_type:
             self.current_token = self.get_next_token()
