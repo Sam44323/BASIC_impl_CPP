@@ -112,30 +112,38 @@ class Interpreter(object):
         else:
             self.error()
 
-    def term(self):
+    def factor(self):
         """Return an INTEGER token value."""
         token = self.current_token
         self.matcher(INTEGER)
         return token.value
+
+    def term(self):
+        """Return a result of multiplying/dividing two factors."""
+        result = self.factor()
+
+        while self.current_token.type == MULTI:
+            self.matcher(MULTI)
+            result *= self.factor()
+
+        while self.current_token.type == DIV:
+            self.matcher(DIV)
+            result /= self.factor()
+
+        return result
 
     def expression(self):
         """Arithmetic expression parser / interpreter."""
 
         result = self.term()  # making sure that the first term/terms are integers
 
-        while self.current_token.type in (PLUS, MINUS, MULTI, DIV):
-            operate = self.current_token
-            if operate.type == PLUS:
+        while self.current_token.type in (PLUS, MINUS):
+            operation = self.current_token
+            if operation.type == PLUS:
                 self.matcher(PLUS)
-                result = result + self.term()
-            elif operate.type == MINUS:
+                result += self.term()
+            elif operation.type == MINUS:
                 self.matcher(MINUS)
-                result = result - self.term()
-            elif operate.type == MULTI:
-                self.matcher(MULTI)
-                result = result * self.term()
-            elif operate.type == DIV:
-                self.matcher(DIV)
-                result = result / self.term()
+                result -= self.term()
 
         return result
